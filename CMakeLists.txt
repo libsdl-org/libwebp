@@ -239,6 +239,9 @@ set_target_properties(
   PROPERTIES PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/src/webp/decode.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/encode.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/types.h")
+if(BUILD_SHARED_LIBS)
+  set_target_properties(webp PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+endif()
 
 # Make sure the OBJECT libraries are built with position independent code (it is
 # not ON by default).
