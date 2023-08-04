@@ -267,7 +267,9 @@ set_target_properties(
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/demux.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/mux_types.h;\
 ${CMAKE_CURRENT_SOURCE_DIR}/src/webp/types.h")
-
+if(BUILD_SHARED_LIBS)
+  set_target_properties(webpdemux PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS TRUE)
+endif()
 configure_pkg_config("src/demux/libwebpdemux.pc")
 
 # Set the version numbers.
