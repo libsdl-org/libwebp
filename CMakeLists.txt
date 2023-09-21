@@ -386,11 +386,11 @@ target_include_directories(webputils PRIVATE ${CMAKE_CURRENT_BINARY_DIR}
                                              ${CMAKE_CURRENT_SOURCE_DIR})
 add_library(webp $<TARGET_OBJECTS:webpdecode> $<TARGET_OBJECTS:webpdsp>
                  $<TARGET_OBJECTS:webpencode> $<TARGET_OBJECTS:webputils>)
-target_link_libraries(webp sharpyuv)
+target_link_libraries(webp PRIVATE sharpyuv)
 if(XCODE)
   libwebp_add_stub_file(webp)
 endif()
-target_link_libraries(webp ${WEBP_DEP_LIBRARIES})
+target_link_libraries(webp PRIVATE ${WEBP_DEP_LIBRARIES})
 target_include_directories(
   webp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}
   PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
