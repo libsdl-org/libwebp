@@ -313,7 +313,8 @@ function(libwebp_add_stub_file TARGET)
 endfunction()
 
 parse_makefile_am(${CMAKE_CURRENT_SOURCE_DIR}/sharpyuv "WEBP_SHARPYUV_SRCS" "")
-add_library(sharpyuv ${WEBP_SHARPYUV_SRCS})
+add_library(sharpyuv STATIC ${WEBP_SHARPYUV_SRCS})
+target_include_directories(sharpyuv INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 target_link_libraries(sharpyuv ${SHARPYUV_DEP_LIBRARIES})
 set_version(sharpyuv/Makefile.am sharpyuv sharpyuv)
 target_include_directories(
