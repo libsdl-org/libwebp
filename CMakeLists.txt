@@ -552,7 +552,6 @@ endif()
 
 if(WEBP_BUILD_IMG2WEBP)
   # img2webp
-  include_directories(${WEBP_DEP_IMG_INCLUDE_DIRS})
   parse_makefile_am(${CMAKE_CURRENT_SOURCE_DIR}/examples "IMG2WEBP_SRCS"
                     "img2webp")
   add_executable(img2webp ${IMG2WEBP_SRCS})
@@ -560,6 +559,7 @@ if(WEBP_BUILD_IMG2WEBP)
                         libwebpmux)
   target_include_directories(img2webp PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src
                                               ${CMAKE_CURRENT_SOURCE_DIR})
+  target_include_directories(img2webp PRIVATE ${WEBP_DEP_IMG_INCLUDE_DIRS})
   install(TARGETS img2webp RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
@@ -593,13 +593,13 @@ endif()
 
 if(WEBP_BUILD_WEBPINFO)
   # webpinfo
-  include_directories(${WEBP_DEP_IMG_INCLUDE_DIRS})
   parse_makefile_am(${CMAKE_CURRENT_SOURCE_DIR}/examples "WEBPINFO_SRCS"
                     "webpinfo")
   add_executable(webpinfo ${WEBPINFO_SRCS})
   target_link_libraries(webpinfo exampleutil imageioutil)
   target_include_directories(webpinfo PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src
                                               ${CMAKE_CURRENT_SOURCE_DIR}/src)
+  target_include_directories(webpinfo PRIVATE ${WEBP_DEP_IMG_INCLUDE_DIRS})
   install(TARGETS webpinfo RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 
