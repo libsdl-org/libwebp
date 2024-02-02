@@ -133,7 +133,7 @@ if(WEBP_UNICODE)
   add_definitions(-DUNICODE -D_UNICODE)
 endif()
 
-if(MSVC AND BUILD_SHARED_LIBS)
+if(WIN32 AND BUILD_SHARED_LIBS)
   add_definitions(-DWEBP_DLL)
 endif()
 
@@ -161,7 +161,9 @@ if(MSVC)
   set(CMAKE_STATIC_LIBRARY_PREFIX "${webp_libname_prefix}")
 endif()
 
+if(NOT WIN32)
 set(CMAKE_C_VISIBILITY_PRESET hidden)
+endif()
 
 # ##############################################################################
 # Android only.
@@ -316,7 +318,7 @@ parse_makefile_am(${CMAKE_CURRENT_SOURCE_DIR}/sharpyuv "WEBP_SHARPYUV_SRCS" "")
 add_library(sharpyuv STATIC ${WEBP_SHARPYUV_SRCS})
 target_include_directories(sharpyuv INTERFACE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 target_link_libraries(sharpyuv ${SHARPYUV_DEP_LIBRARIES})
-set_version(sharpyuv/Makefile.am sharpyuv sharpyuv)
+#set_version(sharpyuv/Makefile.am sharpyuv sharpyuv)
 target_include_directories(
   sharpyuv PRIVATE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}
                    ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -515,7 +517,7 @@ if(WEBP_BUILD_CWEBP)
   # cwebp
   parse_makefile_am(${CMAKE_CURRENT_SOURCE_DIR}/examples "CWEBP_SRCS" "cwebp")
   add_executable(cwebp ${CWEBP_SRCS})
-  target_link_libraries(cwebp exampleutil imagedec webp)
+  target_link_libraries(cwebp exampleutil imagedec webp sharpyuv)
   target_include_directories(cwebp PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src
                                            ${CMAKE_CURRENT_SOURCE_DIR})
   install(TARGETS cwebp RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
@@ -556,7 +558,7 @@ if(WEBP_BUILD_IMG2WEBP)
                     "img2webp")
   add_executable(img2webp ${IMG2WEBP_SRCS})
   target_link_libraries(img2webp exampleutil imagedec imageioutil webp
-                        libwebpmux)
+                        libwebpmux sharpyuv)
   target_include_directories(img2webp PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/src
                                               ${CMAKE_CURRENT_SOURCE_DIR})
   target_include_directories(img2webp PRIVATE ${WEBP_DEP_IMG_INCLUDE_DIRS})

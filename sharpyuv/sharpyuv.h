@@ -17,21 +17,7 @@ extern "C" {
 #endif
 
 #ifndef SHARPYUV_EXTERN
-#ifdef WEBP_EXTERN
-#define SHARPYUV_EXTERN WEBP_EXTERN
-#else
-// This explicitly marks library functions and allows for changing the
-// signature for e.g., Windows DLL builds.
-#if defined(__GNUC__) && __GNUC__ >= 4
-#define SHARPYUV_EXTERN extern __attribute__((visibility("default")))
-#else
-#if defined(_MSC_VER) && defined(WEBP_DLL)
-#define SHARPYUV_EXTERN __declspec(dllexport)
-#else
 #define SHARPYUV_EXTERN extern
-#endif /* _MSC_VER && WEBP_DLL */
-#endif /* __GNUC__ >= 4 */
-#endif /* WEBP_EXTERN */
 #endif /* SHARPYUV_EXTERN */
 
 // SharpYUV API version following the convention from semver.org
