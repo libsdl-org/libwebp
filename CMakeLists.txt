@@ -9,11 +9,15 @@
 if(APPLE)
   cmake_minimum_required(VERSION 3.17)
 else()
-  cmake_minimum_required(VERSION 3.7)
+  cmake_minimum_required(VERSION 3.7...3.10)
 endif()
 
 if(POLICY CMP0072)
   cmake_policy(SET CMP0072 NEW)
+endif()
+
+if(POLICY CMP0074)
+  cmake_policy(SET CMP0074 NEW)
 endif()
 
 project(WebP C)
